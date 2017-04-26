@@ -4,7 +4,23 @@
 }
 
 @using System.Security.Claims
+@model IEnumerable<BasicAuthentication.Models.Post>
 
 <h2>Here is your list of posts, @User.Identity.Name</h2>
 <hr />
+
+@if (Model.Any())
+{
+    <ul>
+        @foreach (var listPost in Model)
+        {
+            <li>@Html.DisplayFor(modelPost => listPost.Description)</li>
+        }
+    </ul>
+}
+else
+{
+    <p>No posts have been added yet!</p>
+}
+
 @Html.ActionLink("Create new", "Create")

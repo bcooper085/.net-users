@@ -8,7 +8,7 @@ using BasicAuthentication.Models;
 namespace BasicAuthentication.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20170425230847_AddPostTable")]
+    [Migration("20170426002205_AddPostTable")]
     partial class AddPostTable
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

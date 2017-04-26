@@ -8,8 +8,8 @@ using BasicAuthentication.Models;
 namespace BasicAuthentication.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20170425225737_AddBlogTable")]
-    partial class AddBlogTable
+    [Migration("20170426002001_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using BasicAuthentication.Models;
 using Microsoft.AspNetCore.Identity;
+using System.Security.Claims;
 
 namespace BasicAuthentication.Controllers
 {
@@ -21,9 +22,26 @@ namespace BasicAuthentication.Controllers
             _db = db;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
+        {
+            var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var currentUser = await _userManager.FindByIdAsync(userId);
+            return View(_db.Posts.Where(x => x.User.Id == currentUser.Id));
+        }
+
+        public IActionResult Create()
         {
             return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> Create(Post post)
+        {
+            var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var currentUser = await _userManager.FindByIdAsync(userId);
+            post.User = currentUser;
+            _db.Posts.Add(post);
+            _db.SaveChanges();
+            return RedirectToAction("Index");
         }
     }
 }
